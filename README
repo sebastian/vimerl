@@ -1,12 +1,5 @@
-iA Writer colorscheme for vim. 
+This is an erlang-friendly fork of iA Writer colorscheme for vim.
 
-Best to be used with Cousine font and linespace value of 5.
+Original repo: https://github.com/jacekd/vim-iawriter
 
-Cousine font link :: http://www.google.com/webfonts/specimen/Cousine
-
-cut from my .vimrc
----------------------------------
-colorscheme iawriter
-set background=light
-set guifont=Cousine:h12
----------------------------------
+[![Screenshot](https://github.com/aerosol/vim-iawriter/raw/master/screenshot.png)](https://github.com/aerosol/vim-iawriter/raw/master/screenshot.png)
