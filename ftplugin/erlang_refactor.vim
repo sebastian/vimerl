@@ -19,7 +19,7 @@ if !exists('g:erlangWranglerPath')
 endif
 
 if glob(g:erlangWranglerPath) == ""
-    call confirm("Wrong path to wrangler dir")
+    call confirm("Wrong path to wrangler dir: ".g:erlangWranglerPath)
     finish
 endif
 
@@ -90,10 +90,8 @@ endfunction
 
 " Sending apply changes to file
 function! s:send_confirm()
-    let choice = confirm("What do you want?", "&Preview\n&Confirm\nCa&ncel", 0)
+    let choice = confirm("Refactoring complete.", "&Confirm\nCa&ncel", 0)
     if choice == 1
-        echo "TODO: Display preview :)"
-    elseif choice == 2
         let module = 'wrangler_preview_server'
         let fun = 'commit'
         let args = '[]'
@@ -163,8 +161,6 @@ function! ErlangExtractFunction(mode) range
         echo "Empty function name. Ignoring."
     endif
 endfunction
-nmap <A-r>e :call ErlangExtractFunction("n")<ENTER>
-vmap <A-r>e :call ErlangExtractFunction("v")<ENTER>
 
 function! s:call_rename(mode, line, col, name, search_path)
     let file = expand("%:p")
@@ -225,22 +221,18 @@ endfunction
 function! ErlangRenameFunction()
     call ErlangRename("fun")
 endfunction
-map <A-r>f :call ErlangRenameFunction()<ENTER>
 
 function! ErlangRenameVariable()
     call ErlangRename("var")
 endfunction
-map <A-r>v :call ErlangRenameVariable()<ENTER>
 
 function! ErlangRenameModule()
     call ErlangRename("mod")
 endfunction
-map <A-r>m :call ErlangRenameModule()<ENTER>
 
 function! ErlangRenameProcess()
     call ErlangRename("process")
 endfunction
-map <A-r>p :call ErlangRenameProcess()<ENTER>
 
 function! s:call_tuple_fun_args(start_line, start_col, end_line, end_col, search_path)
     let file = expand("%:p")
@@ -291,5 +283,13 @@ function! ErlangTupleFunArgs(mode)
         echo "Mode not supported."
     endif
 endfunction
-nmap <A-r>t :call ErlangTupleFunArgs("n")<ENTER>
-vmap <A-r>t :call ErlangTupleFunArgs("v")<ENTER>
+
+nmap <leader>Rt :call ErlangTupleFunArgs("n")<ENTER>
+vmap <leader>Rt :call ErlangTupleFunArgs("v")<ENTER>
+nmap <leader>Re :call ErlangExtractFunction("n")<ENTER>
+vmap <leader>Re :call ErlangExtractFunction("v")<ENTER>
+
+nmap <leader>Rf :call ErlangRenameFunction()<ENTER>
+nmap <leader>Rv :call ErlangRenameVariable()<ENTER>
+nmap <leader>Rm :call ErlangRenameModule()<ENTER>
+nmap <leader>Rp :call ErlangRenameProcess()<ENTER>
