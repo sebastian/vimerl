@@ -1,5 +1,5 @@
 
-NOTICE: This fork of https://github.com/jimenezrick/vimerl
+**NOTICE:** This fork of https://github.com/jimenezrick/vimerl
         contains changes/extensions rejected by jimenzrick.
         It aims to be a fully-featured Erlang plugin.
 
@@ -13,8 +13,8 @@ NOTICE: This fork of https://github.com/jimenezrick/vimerl
 The Erlang plugin for Vim.
 
 
- Features
-----------
+Features
+--------
 
 - Syntax highlighting
 - Code indenting
@@ -28,9 +28,12 @@ The Erlang plugin for Vim.
 - Wrangler support (thanks to spil-enrique)
 - Erlang-aware colorschemes!
 
+[![Screenshot](https://raw.github.com/aerosol/vimerl/master/screenshots/iawriter.png)](https://raw.github.com/aerosol/vimerl/master/screenshots/iawriter.png)
 
- How to install it
--------------------
+[![Screenshot](https://raw.github.com/aerosol/vimerl/master/screenshots/compot.png)](https://raw.github.com/aerosol/vimerl/master/screenshots/compot.png)
+
+How to install it
+-----------------
 
 Copy the content of the tarball to your `.vim'. Don't forget to run
 `:helptags' if you are not using Pathogen.
@@ -42,14 +45,14 @@ With a Vim version older than 7.3 syntax checking will be disabled as
 some required features won't be available.
 
 
- How to use it
----------------
+How to use it
+-------------
 
 Start with `:help vimerl'.
 
 
- How to contribute or report bugs
-----------------------------------
+How to contribute or report bugs
+--------------------------------
 
 Send it to me:
     Ricardo Catalinas Jiménez <jimenezrick@gmail.com>
@@ -57,5 +60,5 @@ or me:
     Adam Rutkowski <hq@mtod.org>
 
 Or use GitHub:
-    http://github.com/jimenezrick/vimerl
     http://github.com/aerosol/vimerl
+    http://github.com/jimenezrick/vimerl
