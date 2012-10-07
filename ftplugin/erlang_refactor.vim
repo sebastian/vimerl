@@ -1,4 +1,4 @@
-ng refactor file
+" Erlang refactor file
 " Language: Erlang
 " Maintainer: Pawel 'kTT' Salata <rockplayer.pl@gmail.com>
 " URL: http://ktototaki.info
