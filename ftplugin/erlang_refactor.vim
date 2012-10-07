@@ -1,4 +1,4 @@
-" Erlang refactor file
+ng refactor file
 " Language: Erlang
 " Maintainer: Pawel 'kTT' Salata <rockplayer.pl@gmail.com>
 " URL: http://ktototaki.info
@@ -16,6 +16,10 @@ endif
 
 if !exists('g:erlangWranglerPath')
     let g:erlangWranglerPath = '/usr/share/wrangler/'
+endif
+
+if !exists('g:erlangWranglerConfirmations')
+    let g:erlangWranglerConfirmations = 1
 endif
 
 if glob(g:erlangWranglerPath) == ""
@@ -37,15 +41,15 @@ endfunction
 
 " Stopping erlang session
 function! StopWranglerServer()
-    echo s:send_rpc('erlang', 'halt', '')
+    call s:send_rpc('erlang', 'halt', '')
 endfunction
 
 " Sending rpc call to erlang session
 function! s:send_rpc(module, fun, args)
     let command = "erl_call -sname " . s:erlangServerName . " -a '" . a:module . " " . a:fun . " " . a:args . "'"
-    echo command
+    "echo command
     let result = system(command)
-    echo result
+    "echo result
     if match(result, 'erl_call: failed to connect to node .*') != -1
         call StartWranglerServer()
         return system(command)
@@ -54,7 +58,7 @@ function! s:send_rpc(module, fun, args)
 endfunction
 
 function! ErlangUndo()
-    echo s:send_rpc("wrangler_undo_server", "undo", "[]")
+    call s:send_rpc("wrangler_undo_server", "undo", "[]")
     :e!
 endfunction
 
@@ -90,7 +94,11 @@ endfunction
 
 " Sending apply changes to file
 function! s:send_confirm()
-    let choice = confirm("Refactoring complete.", "&Confirm\nCa&ncel", 0)
+    if g:erlangWranglerConfirmations == 1
+        let choice = confirm("Refactoring complete.", "&Confirm\nCa&ncel", 0)
+    else
+        let choice = 1
+    endif
     if choice == 1
         let module = 'wrangler_preview_server'
         let fun = 'commit'
@@ -101,7 +109,7 @@ function! s:send_confirm()
         let fun = 'abort'
         let args = '[]'
         return s:send_rpc(module, fun, args)
-        echo "Canceled"
+        echo "Cancelled"
     endif
 endfunction
 
@@ -122,8 +130,8 @@ function! s:call_extract(start_line, start_col, end_line, end_col, name)
         call confirm(msg)
         return 0
     endif
-    echo "This files will be changed: " . matchstr(msg, "[^]]*", 1)
-    echo s:send_confirm()
+    "echo "Files to be changed: " . matchstr(msg, "[^]]*", 1)
+    call s:send_confirm()
     return 1
 endfunction
 
@@ -177,8 +185,8 @@ function! s:call_rename(mode, line, col, name, search_path)
         call confirm(msg)
         return 0
     endif
-    echo "This files will be changed: " . matchstr(msg, "[^]]*", 1)
-    echo s:send_confirm()
+    "echo "Files to be changed: " . matchstr(msg, "[^]]*", 1)
+    call s:send_confirm()
     return 1
 endfunction
 
@@ -293,3 +301,4 @@ nmap <leader>Rf :call ErlangRenameFunction()<ENTER>
 nmap <leader>Rv :call ErlangRenameVariable()<ENTER>
 nmap <leader>Rm :call ErlangRenameModule()<ENTER>
 nmap <leader>Rp :call ErlangRenameProcess()<ENTER>
+
