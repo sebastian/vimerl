@@ -3,12 +3,12 @@ NOTICE: This fork of https://github.com/jimenezrick/vimerl
         contains changes/extensions rejected by jimenzrick.
         It aims to be a fully-featured Erlang plugin.
 
-   _    ___                     __
-  | |  / (_)___ ___  ___  _____/ /
-  | | / / / __ `__ \/ _ \/ ___/ /
-  | |/ / / / / / / /  __/ /  / /
-  |___/_/_/ /_/ /_/\___/_/  /_/
-====================================
+           _    ___                     __
+          | |  / (_)___ ___  ___  _____/ /
+          | | / / / __ `__ \/ _ \/ ___/ /
+          | |/ / / / / / / /  __/ /  / /
+          |___/_/_/ /_/ /_/\___/_/  /_/
+        ====================================
 
 The Erlang plugin for Vim.
 
