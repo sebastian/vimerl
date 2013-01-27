@@ -124,3 +124,27 @@ if g:erlang_highlight_bif
 	hi link erlangBIF    Keyword
 	hi link erlangGBIF   Keyword
 endif
+
+" we need the conceal feature (vim ≥ 7.3)
+if !has('conceal')
+    finish
+endif
+
+if g:erlang_use_conceal
+
+    syntax match Conceal "=<" conceal cchar=≤
+    syntax match Conceal ">=" conceal cchar=≥
+    syntax match Conceal "=:=" conceal cchar=≡
+    syntax match Conceal "=/=" conceal cchar=≢
+    syntax match Conceal "->" conceal cchar=→
+
+    syntax keyword Conceal2 fun conceal cchar=λ
+
+    hi! link Conceal Keyword
+    hi! link Conceal2 Keyword
+
+    setlocal conceallevel=1
+    setlocal concealcursor=n
+
+endif
+
