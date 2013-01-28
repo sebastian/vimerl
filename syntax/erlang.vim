@@ -137,6 +137,8 @@ if g:erlang_use_conceal
     syntax match Conceal "=:=" conceal cchar=≡
     syntax match Conceal "=/=" conceal cchar=≢
     syntax match Conceal "->" conceal cchar=→
+    syntax match Conceal "<<" conceal cchar=«
+    syntax match Conceal ">>" conceal cchar=»
 
     syntax keyword Conceal2 fun conceal cchar=λ
 
