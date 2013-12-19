@@ -4,37 +4,46 @@
 
 -include_lib("proper/include/proper.hrl").
 
--export([test/0, sample/0]).
--export([initial_state/0, command/1, precondition/2, postcondition/3,
-         next_state/3]).
+-export([
+  test/0,
+  sample/0
+]).
+
+-export([
+  initial_state/0,
+  command/1,
+  precondition/2,
+  postcondition/3,
+  next_state/3
+]).
 
 -record(state, {}).
 
 -define(SERVER, foo_server).
-%%--------------------------------------------------------------------
-%%% Statem callbacks
-%%--------------------------------------------------------------------
+
+
+%% -------------------------------------------------------------------
+%% Statemachine callbacks
+%% -------------------------------------------------------------------
 
 test() ->
-    proper:quickcheck(?MODULE:prop_server_works_fine()).
+  proper:quickcheck(?MODULE:prop_server_works_fine()).
 
 sample() ->
-    proper_gen:pick(commands(?MODULE)).
+  proper_gen:pick(commands(?MODULE)).
 
 prop_server_works_fine() ->
-    ?FORALL(Cmds, commands(?MODULE),
-            ?TRAPEXIT(
-               begin
-                   ?SERVER:start_link(),
-                   {History,State,Result} = run_commands(?MODULE, Cmds),
-                   ?SERVER:stop(),
-                   ?WHENFAIL(io:format("History: ~w\nState: ~w\nResult: ~w\n",
-                                       [History,State,Result]),
-                             aggregate(command_names(Cmds), Result =:= ok))
-               end)).
+  ?FORALL(Cmds, commands(?MODULE), ?TRAPEXIT(
+      begin
+      ?SERVER:start_link(),
+      {History,State,Result} = run_commands(?MODULE, Cmds), ?SERVER:stop(),
+          ?WHENFAIL(io:format("History: ~w\nState: ~w\nResult: ~w\n",
+          [History,State,Result]),
+          aggregate(command_names(Cmds), Result =:= ok))
+          end)).
 
 initial_state() ->
-    #state{}.
+  #state{}.
 
 command(_S) -> [].
 
@@ -44,3 +53,7 @@ next_state(_S, _Res, _Call) -> true.
 
 postcondition(_S, _Call, _Res) -> true.
 
+
+%% -------------------------------------------------------------------
+%% Internal functions
+%% -------------------------------------------------------------------
